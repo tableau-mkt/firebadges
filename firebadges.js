@@ -18,8 +18,7 @@
     // Ajax protection.
     if (context !== document) return;
     // Instantiate.
-    //module.Deft = Deft.init(settings.publicKey, settings.privateKey);
-    module.Deft = Deft.init('https://deft-jam.firebaseio.com', '');
+    module.Deft = Deft.init(settings.fireBadges.publicKey);
   };
 
 })(jQuery, Drupal.behaviors.fireBadges || {});
