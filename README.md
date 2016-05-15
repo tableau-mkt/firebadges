@@ -1,11 +1,12 @@
 
 ## Installation
 
-1. Setup a Firebase instance - Use firebase.com
-1. Import architecture - See example import
-1. Add custom badges - See structure
-1. Enable module - Via drush or Drupal UI
-1. Set credentials and admin options - admin/config/services/firebadges
+1. Setup a Firebase instance on firebase.com
+1. Import architecture, see example import in docs.
+1. Add custom badges, see docs.
+1. Add [Deft library](https://github.com/tableau-mkt/deft) to module
+1. Enable module, via drush or Drupal UI.
+1. Set URL and admin options at `admin/config/services/firebadges`
 
 ## Local development
 
