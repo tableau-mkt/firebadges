@@ -1,0 +1,6 @@
+name = Fire Badges
+description = Light-weight client-side badging system, data in FireBase.
+core = 7.x
+configure = admin/config/services/firebadges
+
+dependencies[] = datalayer
