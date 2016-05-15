@@ -26,7 +26,6 @@ function firebadges_page_build(&$page) {
   global $user;
   $active = variable_get('firebadges_toggle', FALSE) &&
       variable_get('firebadges_public_key', '') &&
-      variable_get('firebadges_private_key', '') &&
       in_array(variable_get('firebadges_roles', array()), $user->roles);
   if (!$active) {
     return false;
@@ -39,6 +38,5 @@ function firebadges_page_build(&$page) {
   drupal_add_js(drupal_get_path('module', 'firebadges') . '/' . $path);
   drupal_add_js(array('fireBadges' => array(
     'publicKey' => variable_get('firebadges_public_key', ''),
-    'privateKey' => variable_get('firebadges_private_key', '')
   )), 'setting');
 }

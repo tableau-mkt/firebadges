@@ -15,15 +15,8 @@ function firebadges_admin_settings($form_state) {
     ),
     'firebadges_public_key' => array(
       '#type' => 'textfield',
-      '#title' => t('Firebase Public Key'),
+      '#title' => t('Firebase URL'),
       '#default_value' => variable_get('firebadges_public_key', ''),
-      '#required' => TRUE,
-      '#size' => 15,
-    ),
-    'firebadges_private_key' => array(
-      '#type' => 'textfield',
-      '#title' => t('Firebase Private Key'),
-      '#default_value' => variable_get('firebadges_private_key', ''),
       '#required' => TRUE,
       '#size' => 15,
     ),
