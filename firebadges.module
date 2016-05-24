@@ -13,8 +13,36 @@ function firebadges_menu() {
       'description' => 'Client-side badging system.',
       'type' => MENU_CALLBACK,
       'page callback' => 'drupal_get_form',
-      'access arguments' => array('access administration pages'),
+      'page arguments' => array('firebadges_admin_settings_form'),
+      'access arguments' => array('administer site configuration'),
       'file' => 'firebadges.admin.inc',
+    ),
+  );
+}
+
+/**
+ * Implements hook_library().
+ */
+function firebadges_library() {
+  // Allow local symlink development.
+  $path = variable_get('firebadges_library', FALSE) ?: libraries_get_path('deft');
+
+  return array(
+    'deft' => array(
+      'title' => 'Deft: client-side badges',
+      'version' => '0.1.0',
+      'js' => array(
+        $path . '/deft.js' => array(
+          'type' => 'file',
+          'group' => JS_LIBRARY,
+        ),
+      ),
+      'css' => array(
+        $path . '/deft.css' => array(
+          'type' => 'file',
+          'media' => 'screen',
+        ),
+      ),
     ),
   );
 }
@@ -24,19 +52,17 @@ function firebadges_menu() {
  */
 function firebadges_page_build(&$page) {
   global $user;
-  $active = variable_get('firebadges_toggle', FALSE) &&
-      variable_get('firebadges_public_key', '') &&
-      in_array(variable_get('firebadges_roles', array()), $user->roles);
-  if (!$active) {
-    return false;
+  $active_roles = array_filter(variable_get('firebadges_roles', array()));
+  $active = variable_get('firebadges_toggle', TRUE) &&
+      variable_get('firebadges_firebase_url', '') &&
+      array_intersect_key($active_roles, $user->roles);
+
+  if ($active) {
+    // Assets and settings.
+    drupal_add_library('firebadges', 'deft');
+    drupal_add_js(drupal_get_path('module', 'firebadges') . '/firebadges.js');
+    drupal_add_js(array('fireBadges' => array(
+      'firebaseUrl' => variable_get('firebadges_firebase_url', ''),
+    )), 'setting');
   }
-
-  // Allow local symlink development.
-  $path = variable_get('firebadges_library', FALSE) ?: 'deft/deft.js';
-
-  // Add assets.
-  drupal_add_js(drupal_get_path('module', 'firebadges') . '/' . $path);
-  drupal_add_js(array('fireBadges' => array(
-    'publicKey' => variable_get('firebadges_public_key', ''),
-  )), 'setting');
 }

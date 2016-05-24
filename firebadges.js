@@ -7,6 +7,8 @@
 /* jshint curly:false */
 /* globals Deft */
 
+Drupal.behaviors.fireBadges = {};
+
 (function($, module) {
 
   /**
@@ -18,7 +20,7 @@
     // Ajax protection.
     if (context !== document) return;
     // Instantiate.
-    module.Deft = Deft.init(settings.fireBadges.publicKey);
+    module.Deft = Deft.init(settings.fireBadges.firebaseUrl);
   };
 
-})(jQuery, Drupal.behaviors.fireBadges || {});
+})(jQuery, Drupal.behaviors.fireBadges);
